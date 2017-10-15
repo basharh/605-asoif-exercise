@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import HousesTable from '../containers/HousesTable';
+import HousesTable from './HousesTable';
 
 export default function App() {
   return (

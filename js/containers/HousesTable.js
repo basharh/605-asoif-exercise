@@ -1,36 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import ReactTable from 'react-table';
 
 import Table from '../components/Table';
-import getHousesAction from '../actions/getHouses';
+import getHousesAPI from '../helpers/getHousesAPI';
 
-class HousesTable extends React.Component {
-  componentDidMount() {
-    const { match: { params: { page }, getHouses } } = this.props;
-    getHouses(page);
+export default class HousesTable extends React.Component {
+  constructor() {
+    super();
+    this.columns = [{
+        Header: 'Name',
+        accessor: 'name' // String-based value accessors!
+      }, {
+        Header: 'Region',
+        accessor: 'region',
+      },
+    ];
+    this.state = { data: [], pages: -1, loading: false };
   }
 
-  render() {
-    const { houses } = this.props;
-    return <Table data={houses} />;
+  render = () => {
+    return <ReactTable
+      data={this.state.data} // should default to []
+      pages={this.state.pages} // should default to -1 (which means we don't know how many pages we have)
+      loading={this.state.loading}
+      manual
+      onFetchData={(state, instance) => {
+        console.log('page:', state.page);
+        this.setState({loading: true});
+        getHousesAPI(state.page).then(({data, pages}) =>
+          this.setState({ data, pages, loading: false }));
+      }}
+      defaultPageSize={10}
+      columns={this.columns}
+      className="-striped -highlight"/>;
   }
 }
-
-HousesTable.propTypes = {
-  match: PropTypes.object.isRequired,
-  houses: PropTypes.arrayOf(PropTypes.object),
-};
-
-HousesTable.defaultProps = {
-  houses: [],
-};
-
-const mapStateToProps = state => ({
-  houses: state.app.houses,
-});
-
-const mapDispatchToProps = dispatch => bindActionCreators({ getHouses: getHousesAction }, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(HousesTable);

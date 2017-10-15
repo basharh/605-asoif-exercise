@@ -1,2 +1,14 @@
-@import 'reset';
-@import 'vars';
+@import "reset";
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~react-table/react-table.css";
+@import "vars";
+
+th {
+  font-weight: bold;
+}
+
+.ReactTable {
+  width: 75%;
+  margin: 30px auto;
+}

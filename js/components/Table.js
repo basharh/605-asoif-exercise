@@ -2,22 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function Table(props) {
-  const { data } = props;
-  const headers = Object.keys(data[0]);
+  const { headers, data } = props;
   return (
-    <table>
-      <tr>
-        {headers.map(header => <th>{header}</th>)}
-      </tr>
-      {data.map(record => <tr>{headers.map(header => <td>{record[header]}</td>)}</tr>)}
-    </table>
+    data.length > 0 ?
+      <table className="table table-bordered table-striped">
+        <thead>
+          <tr>
+            {headers.map((header, i) => <th key={i}>{header}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((record, i) =>
+            <tr key={i}>{headers.map((header, j) => <td key={j}>{record[header]}</td>)}</tr>)}
+        </tbody>
+      </table> : null
   );
 }
 
 Table.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object),
-};
-
-Table.defaultProps = {
-  data: [],
+  headers: PropTypes.arrayOf(PropTypes.string).isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
