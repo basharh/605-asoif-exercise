@@ -10,11 +10,15 @@ export default class HousesTable extends React.Component {
     super();
     this.columns = [{
         Header: 'Name',
-        accessor: 'name' // String-based value accessors!
+        accessor: 'name',
       }, {
         Header: 'Region',
         accessor: 'region',
-      },
+      }, {
+        id: 'url',
+        Header: 'members',
+        accessor: (data) => <a href={`/house/${data.url.match(/([\d]+)/)[1]}/members`}>members</a>,
+      }
     ];
     this.state = { data: [], pages: -1, loading: false };
   }
