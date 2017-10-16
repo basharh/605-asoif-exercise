@@ -15,25 +15,23 @@ export default class HousesTable extends React.Component {
         accessor: 'gender',
       },
     ];
-    this.state = { data: [], pages: -1, loading: false };
+    this.state = { data: [], pages: -1, loading: true };
+  }
+
+  componentDidMount() {
+    let houseId = this.props.match.params.id;
+    getHouseMembersAPI(houseId).then(data => {
+      this.setState({ data, loading: false });
+    });
   }
 
   render = () => {
     let houseId = this.props.match.params.id;
     return <ReactTable
-      data={this.state.data} // should default to []
-      pages={this.state.pages} // should default to -1 (which means we don't know how many pages we have)
       loading={this.state.loading}
-      manual
-      onFetchData={(state, instance) => {
-        this.setState({loading: true});
-        getHouseMembersAPI(houseId).then(data => {
-          console.log('data:', data);
-          this.setState({ data, loading: false });
-        });
-      }}
-      defaultPageSize={10}
+      data={this.state.data} // should default to []
       columns={this.columns}
+      defaultPageSize={10}
       className="-striped -highlight"/>;
   }
 }

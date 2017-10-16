@@ -15,9 +15,16 @@ export default class HousesTable extends React.Component {
         Header: 'Region',
         accessor: 'region',
       }, {
-        id: 'url',
-        Header: 'members',
-        accessor: (data) => <a href={`/house/${data.url.match(/([\d]+)/)[1]}/members`}>members</a>,
+        Header: 'Members',
+        accessor: 'url',
+        Cell: props => {
+          let url = `/house/${props.value.match(/([\d]+)/)[1]}/members`;
+          return <div style={{ 'text-align': 'center' }}>
+            <a onClick={ () => this.props.history.push(url) }>
+              <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
+            </a>
+          </div>;
+        }
       }
     ];
     this.state = { data: [], pages: -1, loading: false };
