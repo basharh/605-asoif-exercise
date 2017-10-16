@@ -1,8 +1,8 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
+import React from "react";
+import { Route } from "react-router-dom";
 
-import HousesTable from './HousesTable';
-import HouseMembersTable from './HouseMembersTable';
+import HousesTable from "./HousesTable";
+import HouseMembersTable from "./HouseMembersTable";
 
 export default function App() {
   return (

@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack",
     "webpack-dev": "webpack-dev-server",
-    "lint": "eslint js"
+    "lint": "eslint js",
+    "prettify": "prettier --write 'js/**/*.js'"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -17,9 +18,11 @@
     "css-loader": "^0.28.7",
     "eslint": "^4.8.0",
     "eslint-config-airbnb": "^16.0.0",
+    "eslint-config-prettier": "^2.6.0",
     "eslint-loader": "^1.9.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-react": "^7.4.0",
     "file-loader": "^1.1.5",
     "node-sass": "^4.5.3",
